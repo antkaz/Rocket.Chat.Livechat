@@ -5,9 +5,13 @@ import styles from './styles.scss';
 import {Button} from '../Button';
 
 export class RichMessageGroup extends MemoizedComponent {
+	testClick = (obj) => {
+		console.log("Click clock")
+		console.log(obj.srcElement.innerHTML)
+	}
 
 	renderItems = ({
-
+		props, handleSubmit
 	}) => {
 		const items = [];
 
@@ -15,7 +19,7 @@ export class RichMessageGroup extends MemoizedComponent {
 
 		for(let i=0; i<totalRichMessages; i++){
 			items.push(
-				<Button small outline>{`Option ${i}`}</Button>
+				<Button small outline onClick={this.testClick}>{`Option ${i}`}</Button>
 			)
 		}
 
@@ -26,13 +30,14 @@ export class RichMessageGroup extends MemoizedComponent {
 		className,
 		style = {},
 		richMessages,
+		handleSubmit = handleSubmit
 	}) => (
 		<div
 			className={createClassName(styles, 'rich-message-group', {}, className)}
 			style={style}
 		>
 			{console.log("From richMessageGroup "+richMessages)}
-			{this.renderItems(this.props).map((child) => cloneElement(child, { className: createClassName(styles, 'rich-message-group__item') }))}
+			{this.renderItems(this.props, handleSubmit).map((child) => cloneElement(child, { className: createClassName(styles, 'rich-message-group__item') }))}
 		</div>
 	)
 }
